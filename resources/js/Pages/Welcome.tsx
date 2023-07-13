@@ -8,7 +8,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
             <Head title="Welcome" />
             <div className="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
                 <div className="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
-                    <DarkModeToggle/>
+                    <DarkModeToggle className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"/>
                     {auth.user ? (
                         <Link
                             href={route('dashboard')}

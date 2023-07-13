@@ -14,6 +14,7 @@ export default function Dashboard({ auth }: PageProps) {
                 setQrCode(response.data.qrcode);
             })
             .catch(function (error) {
+                // @todo consider adding popup to user (generic or specific) with fancy react animation.
                 console.log(error);
             })
             .finally(function () {});
@@ -29,7 +30,7 @@ export default function Dashboard({ auth }: PageProps) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900 dark:text-gray-100">You're logged in! <i className="fa-regular fa-sun"></i> <i className="fa-regular fa-moon"></i></div>
+                        <div className="p-6 text-gray-900 dark:text-gray-100">You're logged in! <i className="fa-regular fa-smile-beam"></i> </div>
                     </div>
                 </div>
             </div>

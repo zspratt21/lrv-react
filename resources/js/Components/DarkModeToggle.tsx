@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect, ButtonHTMLAttributes} from 'react';
 
-const DarkModeToggle = () => {
+const DarkModeToggle = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
     const [isDarkMode, setIsDarkMode] = useState(false);
+
     const toggleDarkMode = () => {
         setIsDarkMode((prevMode) => {
             const newMode = !prevMode;
@@ -31,11 +32,16 @@ const DarkModeToggle = () => {
     }, []);
 
     return (
-        <button id="theme-toggle" onClick={toggleDarkMode} type="button" className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+        <button
+            onClick={toggleDarkMode}
+            type="button"
+            className={`theme-toggle ${props.className}`}
+            {...props}
+        >
             {isDarkMode ? (
-                <i id="theme-toggle-dark-icon" className="fa-regular fa-moon"></i>
+               <span><i id="theme-toggle-dark-icon" className="fa-regular fa-moon"></i> Dark</span>
             ) : (
-                <i id="theme-toggle-light-icon" className="fa-regular fa-sun"></i>
+                <span><i id="theme-toggle-light-icon" className="fa-regular fa-sun"></i> Light</span>
             )}
         </button>
     );

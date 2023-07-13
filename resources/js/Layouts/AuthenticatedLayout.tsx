@@ -31,7 +31,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
                             <div className="ml-3 relative">
-                                <DarkModeToggle/>
+                                <DarkModeToggle className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"/>
                             </div>
                             <div className="ml-3 relative">
                                 <Dropdown>
@@ -97,7 +97,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
 
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
                     <div className="px-2">
-                        <DarkModeToggle/>
+                        <DarkModeToggle className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"/>
                     </div>
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
