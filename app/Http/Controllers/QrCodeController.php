@@ -16,20 +16,24 @@ class QrCodeController extends Controller
      */
     public function renderQrCode(Request $request)
     {
-        $type = $request->get('type', 'png');
+        $query = $request->query();
+        $type = !empty($query['type']) ? $query['type'] : 'text';
+        $data = !empty($query[$type]) ? $query[$type] : 'Hello World!';
+        $format = $query['format'] ?? $query['type'] ?? 'png';
         $qrOptions = [
             'scale' => 20,
             'imageBase64' => true,
         ];
-        $qrOptions['outputType'] = $type == 'svg' ? QRCode::OUTPUT_MARKUP_SVG : QRCode::OUTPUT_IMAGE_PNG;
-        $qrOptions['eccLevel'] = $type == 'svg' ? QRCode::ECC_L : QRCode::ECC_H;
+        $qrOptions['outputType'] = $format == 'svg' ? QRCode::OUTPUT_MARKUP_SVG : QRCode::OUTPUT_IMAGE_PNG;
+        $qrOptions['eccLevel'] = $format == 'svg' ? QRCode::ECC_L : QRCode::ECC_H;
 
         $options = new QROptions($qrOptions);
 
-        $qrCode = (new QRCode($options))->render('https://www.google.com');
+        $qrCode = (new QRCode($options))->render($data);
             return response()->json([
             'qrcode' => $qrCode,
-            'options' => json_encode($options),
+            'options' => json_encode($options), // @debug
+            'query' => $request->query(), // @debug
         ]);
     }
 }

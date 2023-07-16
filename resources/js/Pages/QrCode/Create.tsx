@@ -1,15 +1,15 @@
-import {useState, useEffect, FormEventHandler} from 'react';
+import React, {useState, useEffect, FormEventHandler} from 'react';
 import axios from "axios";
 import Url from "@/Pages/QrCode/Types/Url";
+import Text from "@/Pages/QrCode/Types/Text";
 const QrCodeCreate = () => {
     const [qrCode, setQrCode] = useState('');
-    var form: HTMLElement | null;
+    const [form, setForm] = useState<React.ReactNode | null>(null);
+    const getQrCode = (data: string | null) => {
+        // @todo set loading animation here.
 
-
-    useEffect(() => {
-        axios.get('/qrcode/render/google.com')
+        axios.get('/qrcode/render/google.com'+data)
             .then(function (response) {
-                console.log(response.data.qrcode);
                 setQrCode(response.data.qrcode);
             })
             .catch(function (error) {
@@ -17,24 +17,40 @@ const QrCodeCreate = () => {
                 console.log(error);
             })
             .finally(function () {});
-        form = document.getElementById('qr-code-form');
+    }
+
+    useEffect(() => {
+        getQrCode(null);
+        setForm(<Url onSubmit={submit}/>);
     }, []);
 
-    // @todo create forms for url, text and contact qr codes.
+    const submit: FormEventHandler = (e ) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget as HTMLFormElement);
+        let queryString = new URLSearchParams(formData as any).toString();
+        getQrCode('?'+queryString);
+    };
+
+    const changeForm = (e: React.MouseEvent<HTMLAnchorElement>, formComponent: React.ReactNode) => {
+        e.preventDefault();
+        setForm(formComponent);
+    }
+
+    // @todo create forms for contact, email and wi-fi qr codes.
 
     return (
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div className="overflow-hidden shadow-sm sm:rounded-lg flex border-2 border-gray-300 dark:border-gray-700">
                 <div className="p-6 text-gray-900 dark:text-gray-100 flex-1 border-r-2 border-gray-300 dark:border-gray-700">
                     <div className="flex border border-gray-300 dark:border-gray-700">
-                        <a href="" className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-chain"></i> Link</a>
-                        <a href="" className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-align-justify"></i> Text</a>
+                        <a href="" onClick={(e) => changeForm(e, <Url onSubmit={submit}/>)} className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-chain"></i> Link</a>
+                        <a href="" onClick={(e) => changeForm(e, <Text onSubmit={submit}/>)} className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-align-justify"></i> Text</a>
                         <a href="" className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-contact-card"></i> Contact</a>
                         <a href="" className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-envelope"></i> Email</a>
                         <a href="" className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-wifi"></i> WI-FI</a>
                     </div>
-                    <div className="border-gray-300 dark:border-gray-700 p-4">
-                        <Url/>
+                    <div id="qr-form-container" className="border-gray-300 dark:border-gray-700 p-4">
+                        {form}
                     </div>
                 </div>
                 <div className="p-6 text-gray-900 dark:text-gray-100 w-1/3 bg-white dark:bg-gray-800">

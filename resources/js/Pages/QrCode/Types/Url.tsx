@@ -1,22 +1,26 @@
-import {useState, useEffect, FormEventHandler} from 'react';
-import axios from "axios";
+import React from 'react';
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
 import {useForm} from "@inertiajs/react";
 
-const QrCodeCreateFormUrl = () => {
+interface propsInterface {
+    onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+}
+
+const QrCodeCreateFormUrl: React.FC<propsInterface> = ({ onSubmit }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         url: '',
     });
 
-    useEffect(() => {
-
-    }, []);
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        onSubmit(e);
+    };
 
     return (
-        <form id="qr-code-form" action="" method="post">
-            <div className="mb-4 text-lg">
+        <form onSubmit={handleSubmit}>
+            <div className="mb-4">
                 <InputLabel htmlFor="url" value="URL" className="text-lg"/>
             </div>
             <div className="mb-4">
@@ -24,7 +28,7 @@ const QrCodeCreateFormUrl = () => {
                     id="url"
                     type="text"
                     name="url"
-                    className="mt-1 block w-full"
+                    className="mt-1 block w-full dark:bg-gray-800"
                     isFocused={true}
                     onChange={(e) => setData('url', e.target.value)}
                     placeholder="https://google.com"
@@ -34,6 +38,7 @@ const QrCodeCreateFormUrl = () => {
                 </div>
                 <InputError message={errors.url} className="mt-2" />
             </div>
+            <input type="hidden" value="url" name="type" id="type"/>
             <div className="mb-4"><input type="submit" value="submit"/></div>
         </form>
     );
