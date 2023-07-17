@@ -2,10 +2,11 @@ import React, {useState, useEffect, FormEventHandler} from 'react';
 import axios from "axios";
 import Url from "@/Pages/QrCode/Types/Url";
 import Text from "@/Pages/QrCode/Types/Text";
+import Email from "@/Pages/QrCode/Types/Email";
 const QrCodeCreate = () => {
     const [qrCode, setQrCode] = useState('');
     const [form, setForm] = useState<React.ReactNode | null>(null);
-    const getQrCode = (data: string | null) => {
+    const getQrCode = (data: string) => {
         // @todo set loading animation here.
 
         axios.get('/qrcode/render/google.com'+data)
@@ -20,7 +21,7 @@ const QrCodeCreate = () => {
     }
 
     useEffect(() => {
-        getQrCode(null);
+        getQrCode('');
         setForm(<Url onSubmit={submit}/>);
     }, []);
 
@@ -46,7 +47,7 @@ const QrCodeCreate = () => {
                         <a href="" onClick={(e) => changeForm(e, <Url onSubmit={submit}/>)} className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-chain"></i> Link</a>
                         <a href="" onClick={(e) => changeForm(e, <Text onSubmit={submit}/>)} className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-align-justify"></i> Text</a>
                         <a href="" className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-contact-card"></i> Contact</a>
-                        <a href="" className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-envelope"></i> Email</a>
+                        <a href="" onClick={(e) => changeForm(e, <Email onSubmit={submit}/>)} className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-envelope"></i> Email</a>
                         <a href="" className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-wifi"></i> WI-FI</a>
                     </div>
                     <div id="qr-form-container" className="border-gray-300 dark:border-gray-700 p-4">
@@ -54,7 +55,8 @@ const QrCodeCreate = () => {
                     </div>
                 </div>
                 <div className="p-6 text-gray-900 dark:text-gray-100 w-1/3 bg-white dark:bg-gray-800">
-                    <img className="w-full" src={qrCode}/>
+                    {/* @todo Add pop up to show qr code fullscreen/maximized */}
+                    <a className="w-full" href="" onClick={(e) => {e.preventDefault()}}><img src={qrCode}/></a>
                     <div className="flex">
                         <a href="" className="button-primary w-full p-2 text-center sm:rounded bg-amber-300 dark:bg-amber-700 ml-4 mr-4"><i className="fa-solid fa-download"></i> PNG</a>
                         <a href="" className="button-primary w-full p-2 text-center sm:rounded bg-amber-300 dark:bg-amber-700 ml-4 mr-4"><i className="fa-solid fa-download"></i> SVG</a>

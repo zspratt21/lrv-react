@@ -18,7 +18,23 @@ class QrCodeController extends Controller
     {
         $query = $request->query();
         $type = !empty($query['type']) ? $query['type'] : 'text';
-        $data = !empty($query[$type]) ? $query[$type] : 'Hello World!';
+        $data = '';
+        // @debug
+        $debug = [];
+        switch ($type)
+        {
+            case 'url':
+            case 'text':
+                $data = !empty($query[$type]) ? $query[$type] : 'Hello World!';
+                break;
+            case 'email':
+                // @todo
+                $subject = $query['subject'];
+                $body = $query['body'];
+                $data = 'mailto:' . $query['email'] . '?subject=' . $subject . '&body=' . $body;
+                $debug['data'] = $data;
+                break;
+        }
         $format = $query['format'] ?? $query['type'] ?? 'png';
         $qrOptions = [
             'scale' => 20,
@@ -31,9 +47,10 @@ class QrCodeController extends Controller
 
         $qrCode = (new QRCode($options))->render($data);
             return response()->json([
-            'qrcode' => $qrCode,
-            'options' => json_encode($options), // @debug
-            'query' => $request->query(), // @debug
-        ]);
+                'qrcode' => $qrCode,
+                'options' => json_encode($options), // @debug
+                'query' => $request->query(), // @debug
+                'debug' => $debug, // @debug,
+            ]);
     }
 }
