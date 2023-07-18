@@ -1,5 +1,4 @@
 import React from 'react';
-import InputLabel from "@/Components/InputLabel";
 import InputError from "@/Components/InputError";
 import {useForm} from "@inertiajs/react";
 import TextArea from "@/Components/TextArea";
@@ -21,7 +20,7 @@ const QrCodeCreateFormText: React.FC<propsInterface> = ({ onSubmit }) => {
     return (
         <form onSubmit={handleSubmit}>
             <div className="mb-4">
-                <InputLabel htmlFor="text" value="Text" className="text-lg"/>
+                <h6>Text</h6>
             </div>
             <div className="mb-4">
                 <TextArea

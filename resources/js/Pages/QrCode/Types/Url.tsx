@@ -21,7 +21,7 @@ const QrCodeCreateFormUrl: React.FC<propsInterface> = ({ onSubmit }) => {
     return (
         <form onSubmit={handleSubmit}>
             <div className="mb-4">
-                <InputLabel htmlFor="url" value="URL" className="text-lg"/>
+                <h6>Url</h6>
             </div>
             <div className="mb-4">
                 <TextInput

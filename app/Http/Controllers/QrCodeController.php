@@ -21,20 +21,36 @@ class QrCodeController extends Controller
         $data = '';
         // @debug
         $debug = [];
-        switch ($type)
-        {
+        switch ($type) {
             case 'url':
             case 'text':
                 $data = !empty($query[$type]) ? $query[$type] : 'Hello World!';
                 break;
             case 'email':
-                // @todo
                 $subject = $query['subject'];
                 $body = $query['body'];
                 $data = 'mailto:' . $query['email'] . '?subject=' . $subject . '&body=' . $body;
-                $debug['data'] = $data;
+                break;
+            case 'contact':
+                $name = 'FN:' . $query['name'] .  "\n";
+                $mobile = 'TEL;TYPE=cell:' . $query['mobile'] . "\n";
+                $email = !empty($query['email']) ? 'EMAIL:' . $query['email'] . "\n" : '';
+                $website = !empty($query['website']) ? 'URL:' . $query['website'] . "\n" : '';
+                $company = !empty($query['company']) ? 'ORG:' . $query['company'] . "\n" : '';
+                $data = 'BEGIN:VCARD' . "\n" .
+                    'VERSION:3.0' . "\n" .
+                    $name .
+                    $mobile .
+                    $email .
+                    $website .
+                    $company .
+                    'END:VCARD';
+                break;
+            case 'wifi':
+                $data = 'WIFI:T:' . $query['network_type'] . ';S:' . $query['ssid'] . ';P:' . $query['password'] . ';;';
                 break;
         }
+        $debug['data'] = $data; // @debug
         $format = $query['format'] ?? $query['type'] ?? 'png';
         $qrOptions = [
             'scale' => 20,

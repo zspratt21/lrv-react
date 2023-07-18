@@ -3,6 +3,8 @@ import axios from "axios";
 import Url from "@/Pages/QrCode/Types/Url";
 import Text from "@/Pages/QrCode/Types/Text";
 import Email from "@/Pages/QrCode/Types/Email";
+import Contact from "@/Pages/QrCode/Types/Contact";
+import WIFI from "@/Pages/QrCode/Types/WIFI";
 const QrCodeCreate = () => {
     const [qrCode, setQrCode] = useState('');
     const [form, setForm] = useState<React.ReactNode | null>(null);
@@ -46,9 +48,9 @@ const QrCodeCreate = () => {
                     <div className="flex border border-gray-300 dark:border-gray-700">
                         <a href="" onClick={(e) => changeForm(e, <Url onSubmit={submit}/>)} className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-chain"></i> Link</a>
                         <a href="" onClick={(e) => changeForm(e, <Text onSubmit={submit}/>)} className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-align-justify"></i> Text</a>
-                        <a href="" className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-contact-card"></i> Contact</a>
+                        <a href="" onClick={(e) => changeForm(e, <Contact onSubmit={submit}/>)} className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-contact-card"></i> Contact</a>
                         <a href="" onClick={(e) => changeForm(e, <Email onSubmit={submit}/>)} className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-envelope"></i> Email</a>
-                        <a href="" className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-wifi"></i> WI-FI</a>
+                        <a href="" onClick={(e) => changeForm(e, <WIFI onSubmit={submit}/>)} className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800"><i className="fa-solid fa-wifi"></i> WI-FI</a>
                     </div>
                     <div id="qr-form-container" className="border-gray-300 dark:border-gray-700 p-4">
                         {form}

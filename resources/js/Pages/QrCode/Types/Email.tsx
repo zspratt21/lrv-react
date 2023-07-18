@@ -24,7 +24,7 @@ const QrCodeCreateFormEmail: React.FC<propsInterface> = ({ onSubmit }) => {
     return (
         <form onSubmit={handleSubmit}>
             <div className="mb-4">
-                <InputLabel htmlFor="text" value="Text" className="text-lg"/>
+                <h6>Email</h6>
             </div>
             <div className="mb-4">
                 <TextInput
@@ -33,10 +33,10 @@ const QrCodeCreateFormEmail: React.FC<propsInterface> = ({ onSubmit }) => {
                     name="email"
                     className="mt-1 block w-full dark:bg-gray-800"
                     isFocused={true}
-                    onChange={(e) => setData('subject', e.target.value)}
+                    onChange={(e) => setData('email', e.target.value)}
                     placeholder="hello@world.com"
                 />
-                <InputError message={errors.subject} className="mt-2" />
+                <InputError message={errors.email} className="mt-2" />
             </div>
             <div className="mb-4">
                 <TextInput
