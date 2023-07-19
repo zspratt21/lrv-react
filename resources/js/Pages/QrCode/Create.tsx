@@ -39,8 +39,6 @@ const QrCodeCreate = () => {
         setForm(formComponent);
     }
 
-    // @todo create forms for contact, email and wi-fi qr codes.
-
     return (
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div className="overflow-hidden shadow-sm sm:rounded-lg flex border-2 border-gray-300 dark:border-gray-700">
@@ -60,11 +58,13 @@ const QrCodeCreate = () => {
                     {/* @todo Add pop up to show qr code fullscreen/maximized */}
                     <a className="w-full" href="" onClick={(e) => {e.preventDefault()}}><img src={qrCode}/></a>
                     <div className="flex">
+                        {/* @todo download links functionality */}
                         <a href="" className="button-primary w-full p-2 text-center sm:rounded bg-amber-300 dark:bg-amber-700 ml-4 mr-4"><i className="fa-solid fa-download"></i> PNG</a>
                         <a href="" className="button-primary w-full p-2 text-center sm:rounded bg-amber-300 dark:bg-amber-700 ml-4 mr-4"><i className="fa-solid fa-download"></i> SVG</a>
                     </div>
                 </div>
             </div>
+            {/*  @todo Appearance customization  */}
         </div>
     );
 };
