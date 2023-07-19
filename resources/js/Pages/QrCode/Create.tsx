@@ -8,18 +8,38 @@ import WIFI from "@/Pages/QrCode/Types/WIFI";
 const QrCodeCreate = () => {
     const [qrCode, setQrCode] = useState('');
     const [form, setForm] = useState<React.ReactNode | null>(null);
+    const [queryString, setQueryString] = useState('');
     const getQrCode = (data: string) => {
         // @todo set loading animation here.
-
         axios.get('/qrcode/render/google.com'+data)
             .then(function (response) {
-                setQrCode(response.data.qrcode);
+                if (response.data.format == 'svg') {
+                    downloadQrCode(null, response.data.qrcode, 'svg');
+                }
+                else {
+                    setQrCode(response.data.qrcode);
+                }
             })
             .catch(function (error) {
                 // @todo consider adding popup to user (generic or specific) with fancy react animation.
                 console.log(error);
             })
             .finally(function () {});
+    }
+
+    const downloadQrCode = (e: React.MouseEvent<HTMLAnchorElement> | null, data = qrCode, format = 'png') => {
+        if (e !== null) {
+            e.preventDefault();
+        }
+        let link = document.createElement('a');
+        link.href = data;
+        link.download = 'qrcode.'+format;
+        link.click();
+    }
+
+    const downloadQrCodeSvg = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        getQrCode('?'+queryString+'&format=svg');
     }
 
     useEffect(() => {
@@ -29,9 +49,10 @@ const QrCodeCreate = () => {
 
     const submit: FormEventHandler = (e ) => {
         e.preventDefault();
-        const formData = new FormData(e.currentTarget as HTMLFormElement);
-        let queryString = new URLSearchParams(formData as any).toString();
-        getQrCode('?'+queryString);
+        let formData = new FormData(e.currentTarget as HTMLFormElement);
+        let tempQueryString = new URLSearchParams(formData as any).toString();
+        setQueryString(tempQueryString);
+        getQrCode('?'+tempQueryString);
     };
 
     const changeForm = (e: React.MouseEvent<HTMLAnchorElement>, formComponent: React.ReactNode) => {
@@ -59,8 +80,8 @@ const QrCodeCreate = () => {
                     <a className="w-full" href="" onClick={(e) => {e.preventDefault()}}><img src={qrCode}/></a>
                     <div className="flex">
                         {/* @todo download links functionality */}
-                        <a href="" className="button-primary w-full p-2 text-center sm:rounded bg-amber-300 dark:bg-amber-700 ml-4 mr-4"><i className="fa-solid fa-download"></i> PNG</a>
-                        <a href="" className="button-primary w-full p-2 text-center sm:rounded bg-amber-300 dark:bg-amber-700 ml-4 mr-4"><i className="fa-solid fa-download"></i> SVG</a>
+                        <a href="" onClick={(e) => {downloadQrCode(e)}} className="button-primary w-full p-2 text-center sm:rounded bg-amber-300 dark:bg-amber-700 ml-4 mr-4"><i className="fa-solid fa-download"></i> PNG</a>
+                        <a href="" onClick={(e) => {downloadQrCodeSvg(e)}} className="button-primary w-full p-2 text-center sm:rounded bg-amber-300 dark:bg-amber-700 ml-4 mr-4"><i className="fa-solid fa-download"></i> SVG</a>
                     </div>
                 </div>
             </div>

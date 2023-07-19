@@ -57,7 +57,6 @@ class QrCodeController extends Controller
             'imageBase64' => true,
         ];
         $qrOptions['outputType'] = $format == 'svg' ? QRCode::OUTPUT_MARKUP_SVG : QRCode::OUTPUT_IMAGE_PNG;
-        $qrOptions['eccLevel'] = $format == 'svg' ? QRCode::ECC_L : QRCode::ECC_H;
 
         $options = new QROptions($qrOptions);
 
@@ -67,6 +66,7 @@ class QrCodeController extends Controller
                 'options' => json_encode($options), // @debug
                 'query' => $request->query(), // @debug
                 'debug' => $debug, // @debug,
+                'format' => $format,
             ]);
     }
 }
