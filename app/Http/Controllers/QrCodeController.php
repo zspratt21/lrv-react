@@ -53,7 +53,7 @@ class QrCodeController extends Controller
         $debug['data'] = $data; // @debug
         $format = $query['format'] ?? $query['type'] ?? 'png';
         $qrOptions = [
-            'scale' => 20,
+            'scale' => 30,
             'imageBase64' => true,
         ];
         $qrOptions['outputType'] = $format == 'svg' ? QRCode::OUTPUT_MARKUP_SVG : QRCode::OUTPUT_IMAGE_PNG;

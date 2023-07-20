@@ -5,6 +5,7 @@ import Text from "@/Pages/QrCode/Types/Text";
 import Email from "@/Pages/QrCode/Types/Email";
 import Contact from "@/Pages/QrCode/Types/Contact";
 import WIFI from "@/Pages/QrCode/Types/WIFI";
+import Modal from "@/Components/Modal";
 const QrCodeCreate = () => {
     const [qrCode, setQrCode] = useState('');
     const [form, setForm] = useState<React.ReactNode | null>(null);
@@ -13,7 +14,7 @@ const QrCodeCreate = () => {
         // @todo set loading animation here.
         axios.get('/qrcode/render/google.com'+data)
             .then(function (response) {
-                if (response.data.format == 'svg') {
+                if (data.includes('format=svg')) {
                     downloadQrCode(null, response.data.qrcode, 'svg');
                 }
                 else {
@@ -23,6 +24,8 @@ const QrCodeCreate = () => {
             .catch(function (error) {
                 // @todo consider adding popup to user (generic or specific) with fancy react animation.
                 console.log(error);
+                setErrorMessage(error.message);
+                openErrorModal();
             })
             .finally(function () {});
     }
@@ -39,7 +42,8 @@ const QrCodeCreate = () => {
 
     const downloadQrCodeSvg = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        getQrCode('?'+queryString+'&format=svg');
+        let tempQueryString = queryString !== '' ? queryString+'&format=svg' : 'format=svg';
+        getQrCode('?'+tempQueryString);
     }
 
     useEffect(() => {
@@ -60,8 +64,39 @@ const QrCodeCreate = () => {
         setForm(formComponent);
     }
 
+    const [isQrModalOpen, setQrModalOpen] = useState(false);
+
+    const openQrModal = () => {
+        setQrModalOpen(true);
+    };
+
+    const closeQrModal = () => {
+        setQrModalOpen(false);
+    };
+
+    const [isErrorModalOpen, setErrorModalOpen] = useState(false);
+
+    const openErrorModal = () => {
+        setErrorModalOpen(true);
+    };
+
+    const closeErrorModal = () => {
+        setErrorModalOpen(false);
+    };
+
+    const [errorMessage, setErrorMessage] = useState('There was a problem with the request');
+
     return (
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <Modal show={isQrModalOpen} onClose={closeQrModal}>
+                <img src={qrCode}/>
+            </Modal>
+            <Modal show={isErrorModalOpen} onClose={closeErrorModal}>
+                <div className="mx-auto p-4">
+                    <b className="mb-2 text-red-600">Error</b>
+                    <p className="text-gray-900 dark:text-gray-100">{errorMessage}</p>
+                </div>
+            </Modal>
             <div className="overflow-hidden shadow-sm sm:rounded-lg flex border-2 border-gray-300 dark:border-gray-700">
                 <div className="p-6 text-gray-900 dark:text-gray-100 flex-1 border-r-2 border-gray-300 dark:border-gray-700">
                     <div className="flex border border-gray-300 dark:border-gray-700">
@@ -76,16 +111,13 @@ const QrCodeCreate = () => {
                     </div>
                 </div>
                 <div className="p-6 text-gray-900 dark:text-gray-100 w-1/3 bg-white dark:bg-gray-800">
-                    {/* @todo Add pop up to show qr code fullscreen/maximized */}
-                    <a className="w-full" href="" onClick={(e) => {e.preventDefault()}}><img src={qrCode}/></a>
+                    <a className="w-full" href="" onClick={(e) => {e.preventDefault(); openQrModal()}}><img src={qrCode}/></a>
                     <div className="flex">
-                        {/* @todo download links functionality */}
                         <a href="" onClick={(e) => {downloadQrCode(e)}} className="button-primary w-full p-2 text-center sm:rounded bg-amber-300 dark:bg-amber-700 ml-4 mr-4"><i className="fa-solid fa-download"></i> PNG</a>
                         <a href="" onClick={(e) => {downloadQrCodeSvg(e)}} className="button-primary w-full p-2 text-center sm:rounded bg-amber-300 dark:bg-amber-700 ml-4 mr-4"><i className="fa-solid fa-download"></i> SVG</a>
                     </div>
                 </div>
             </div>
-            {/*  @todo Appearance customization  */}
         </div>
     );
 };
