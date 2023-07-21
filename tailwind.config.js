@@ -8,17 +8,20 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/js/**/*.tsx',
-    ],
+        ],
 
-    theme: {
-        extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                },
             },
-        },
     },
 
     plugins: [forms],
 
     darkMode: 'class',
+
+    mode: 'jit',
+
 };
