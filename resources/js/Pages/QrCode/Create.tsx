@@ -101,7 +101,7 @@ const QrCodeCreate = () => {
     return (
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <Modal show={isQrModalOpen} onClose={closeQrModal}>
-                {qrDisplay}
+                <img src={qrCode} className="h-screen max-h-[990px]"/>
             </Modal>
             <Modal show={isErrorModalOpen} onClose={closeErrorModal}>
                 <div className="mx-auto p-4">

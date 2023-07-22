@@ -71,7 +71,9 @@ const QrCodeCreateFormEmail: React.FC<propsInterface> = ({ onSubmit }) => {
                 <InputError message={errors.body} className="mt-2" />
             </div>
             <input type="hidden" value="email" name="type" id="type"/>
-            <div className="mb-4"><input type="submit" value="submit"/></div>
+            <div className="mb-4">
+                <button type="submit" className="button-primary w-16 p-2 text-center sm:rounded bg-indigo-300 dark:bg-indigo-700"><i className="fa-solid fa-right-to-bracket"></i></button>
+            </div>
         </form>
     );
 };

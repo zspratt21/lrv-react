@@ -16,8 +16,6 @@ class QrCodeController extends Controller
      */
     public function renderQrCode(Request $request)
     {
-        // @debug
-        sleep(3);
         $query = $request->query();
         $type = !empty($query['type']) ? $query['type'] : 'text';
         $data = '';

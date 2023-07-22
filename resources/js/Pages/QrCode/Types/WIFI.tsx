@@ -67,8 +67,13 @@ const QrCodeCreateFormWiFi: React.FC<propsInterface> = ({ onSubmit }) => {
                     <InputError message={errors.password} className="mt-2" />
                 </div>
             </div>
+            <div className="mt-2">
+                <small>Your QR code will connect to this network when scanned.</small>
+            </div>
             <input type="hidden" value="wifi" name="type" id="type"/>
-            <div className="mb-4"><input type="submit" value="submit"/></div>
+            <div className="mb-4">
+                <button type="submit" className="button-primary w-16 p-2 text-center sm:rounded bg-indigo-300 dark:bg-indigo-700"><i className="fa-solid fa-right-to-bracket"></i></button>
+            </div>
         </form>
     );
 };
