@@ -19,7 +19,27 @@ const QrCodeCreateFormEmail: React.FC<propsInterface> = ({ onSubmit }) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        onSubmit(e);
+        let emailValid = data.email !== '' && data.email.includes('@') && data.email.includes('.');
+        let subjectValid = data.subject !== '';
+        let bodyValid = data.body !== '';
+        let formValid = emailValid && subjectValid && bodyValid;
+        if (formValid) {
+            onSubmit(e);
+        }
+        else {
+            if (!emailValid) {
+                errors.email = 'Please enter a valid email.';
+                setData('email', '');
+            }
+            if (!subjectValid) {
+                errors.subject = 'Please enter a subject.';
+                setData('subject', '');
+            }
+            if (!bodyValid) {
+                errors.body = 'Please enter a body.';
+                setData('body', '');
+            }
+        }
     };
 
     return (
@@ -33,9 +53,9 @@ const QrCodeCreateFormEmail: React.FC<propsInterface> = ({ onSubmit }) => {
                         id="email"
                         type="text"
                         name="email"
-                        className="mt-1 block w-full dark:bg-gray-800 peer leading-10 pb-0"
+                        className="mt-1 block w-full dark:bg-gray-800 peer pt-4"
                         isFocused={true}
-                        onChange={(e) => setData('email', e.target.value)}
+                        onChange={(e) => {setData('email', e.target.value); errors.email = '';}}
                         placeholder="hello@world.com"
                     />
                     <FloatingInputLabel htmlFor="email" value="Address" top="top-1"/>
@@ -46,9 +66,9 @@ const QrCodeCreateFormEmail: React.FC<propsInterface> = ({ onSubmit }) => {
                         id="subject"
                         type="text"
                         name="subject"
-                        className="mt-1 block w-full dark:bg-gray-800 peer leading-10 pb-0"
+                        className="mt-1 block w-full dark:bg-gray-800 peer pt-4"
                         isFocused={true}
-                        onChange={(e) => setData('subject', e.target.value)}
+                        onChange={(e) => {setData('subject', e.target.value); errors.subject = '';}}
                         placeholder="Top Secret"
                     />
                     <FloatingInputLabel htmlFor="subject" value="Subject" top="top-1"/>
@@ -59,10 +79,10 @@ const QrCodeCreateFormEmail: React.FC<propsInterface> = ({ onSubmit }) => {
                 <TextArea
                     id="body"
                     name="body"
-                    className="mt-1 block w-full dark:bg-gray-800 peer leading-10 pb-0"
+                    className="mt-1 block w-full dark:bg-gray-800 peer pb-0 pt-4"
                     isFocused={true}
-                    onChange={(e) => setData('body', e.target.value)}
-                    placeholder="Hello World!"
+                    onChange={(e) => {setData('body', e.target.value); errors.body = '';}}
+                    placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                 />
                 <FloatingInputLabel htmlFor="body" value="Body"/>
                 <div className="mt-2">

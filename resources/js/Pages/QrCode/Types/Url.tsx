@@ -15,7 +15,15 @@ const QrCodeCreateFormUrl: React.FC<propsInterface> = ({ onSubmit }) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        onSubmit(e);
+        let urlValid = data.url !== '' && data.url.includes('http://') || data.url.includes('https://')
+        if (urlValid) {
+            onSubmit(e);
+        }
+        else {
+            errors.url = 'Please enter a valid url.';
+            setData('url', '');
+        }
+
     };
 
     return (
@@ -30,7 +38,7 @@ const QrCodeCreateFormUrl: React.FC<propsInterface> = ({ onSubmit }) => {
                     name="url"
                     className="mt-1 block w-full dark:bg-gray-800"
                     isFocused={true}
-                    onChange={(e) => setData('url', e.target.value)}
+                    onChange={(e) => {setData('url', e.target.value); errors.url = '';}}
                     placeholder="https://google.com"
                 />
                 <div className="mt-2">

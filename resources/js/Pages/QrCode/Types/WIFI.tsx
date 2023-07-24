@@ -19,7 +19,29 @@ const QrCodeCreateFormWiFi: React.FC<propsInterface> = ({ onSubmit }) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        onSubmit(e);
+        let ssidValid = data.ssid !== '';
+        let authType1 = data.password !== '' && (data.network_type == 'WPA' || data.network_type == 'WEP');
+        let authType2 = data.password == '' && data.network_type == 'No Encryption';
+        let authTypeValid = authType1 || authType2;
+        let formValid = ssidValid && authTypeValid;
+        if (formValid) {
+            onSubmit(e);
+        }
+        else {
+            if (!ssidValid) {
+                errors.ssid = 'Please enter a SSID.';
+                setData('ssid', '');
+            }
+            if (!authTypeValid) {
+                setData('password', '');
+                if (!authType2) {
+                    errors.password = 'A password is not allowed for this network type.';
+                }
+                else if (!authType1) {
+                    errors.password = 'Please enter a password.';
+                }
+            }
+        }
     };
 
     return (
@@ -33,10 +55,10 @@ const QrCodeCreateFormWiFi: React.FC<propsInterface> = ({ onSubmit }) => {
                         id="ssid"
                         type="text"
                         name="ssid"
-                        className="mt-1 block w-full dark:bg-gray-800 peer leading-10 pb-0"
+                        className="mt-1 block w-full dark:bg-gray-800 peer pt-4"
                         isFocused={true}
-                        onChange={(e) => setData('ssid', e.target.value)}
-                        placeholder="hello@world.com"
+                        onChange={(e) => {setData('ssid', e.target.value); errors.ssid = '';}}
+                        placeholder="My Wi-Fi Network"
                     />
                     <FloatingInputLabel htmlFor="ssid" value="SSID" top="top-1"/>
                     <InputError message={errors.ssid} className="mt-2" />
@@ -45,8 +67,8 @@ const QrCodeCreateFormWiFi: React.FC<propsInterface> = ({ onSubmit }) => {
                     <Select
                         id="network_type"
                         name="network_type"
-                        className="mt-1 block w-full dark:bg-gray-800 peer leading-10 pb-0"
-                        onChange={(e) => setData('network_type', e.target.value)}
+                        className="mt-1 block w-full dark:bg-gray-800 peer pt-4"
+                        onChange={(e) => {setData('network_type', e.target.value); errors.network_type = ''; errors.password = '';}}
                         placeholder="Top Secret"
                         options = {['WPA', 'WEP', 'No Encryption']}
                     />
@@ -58,9 +80,9 @@ const QrCodeCreateFormWiFi: React.FC<propsInterface> = ({ onSubmit }) => {
                         id="password"
                         type="text"
                         name="password"
-                        className="mt-1 block w-full dark:bg-gray-800 peer leading-10 pb-0"
+                        className="mt-1 block w-full dark:bg-gray-800 peer pt-4"
                         isFocused={true}
-                        onChange={(e) => setData('password', e.target.value)}
+                        onChange={(e) => {setData('password', e.target.value); errors.password = '';}}
                         placeholder="Top Secret"
                     />
                     <FloatingInputLabel htmlFor="password" value="Password" top="top-1"/>

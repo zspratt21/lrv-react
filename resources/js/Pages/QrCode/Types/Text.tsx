@@ -14,7 +14,13 @@ const QrCodeCreateFormText: React.FC<propsInterface> = ({ onSubmit }) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        onSubmit(e);
+        if (data.text !== '') {
+            onSubmit(e);
+        }
+        else {
+            errors.text = 'Please enter some text.';
+            setData('text', '');
+        }
     };
 
     return (
@@ -28,8 +34,8 @@ const QrCodeCreateFormText: React.FC<propsInterface> = ({ onSubmit }) => {
                     name="text"
                     className="mt-1 block w-full dark:bg-gray-800"
                     isFocused={true}
-                    onChange={(e) => setData('text', e.target.value)}
-                    placeholder="Hello World!"
+                    onChange={(e) => {setData('text', e.target.value); errors.text = '';}}
+                    placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                 />
                 <div className="mt-2">
                     <small>Your QR code will display this text when scanned.</small>
