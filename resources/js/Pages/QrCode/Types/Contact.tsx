@@ -59,7 +59,7 @@ const QrCodeCreateFormEmail: React.FC<propsInterface> = ({ onSubmit }) => {
                     id="name"
                     type="text"
                     name="name"
-                    className="mt-1 block w-full dark:bg-gray-800 peer pt-4"
+                    className="mt-1 block w-full peer pt-4"
                     isFocused={true}
                     onChange={(e) => {setData('name', e.target.value); errors.name = '';}}
                     placeholder="john"
@@ -67,59 +67,59 @@ const QrCodeCreateFormEmail: React.FC<propsInterface> = ({ onSubmit }) => {
                 <FloatingInputLabel htmlFor="name" value="Name"/>
                 <InputError message={errors.name} className="mt-2" />
             </div>
-            <div className="mb-4 flex">
-                <div className="flex-1 mr-2 relative">
+            <div className="lg:flex">
+                <div className="mb-4 flex-1 lg:mr-2 relative">
                     <TextInput
                         id="mobile"
                         type="text"
                         name="mobile"
-                        className="mt-1 block w-full dark:bg-gray-800 peer pt-4"
+                        className="mt-1 block w-full peer pt-4"
                         isFocused={true}
                         onChange={(e) => {setData('mobile', e.target.value); errors.mobile = '';}}
                         placeholder="9157777777"
                     />
-                    <FloatingInputLabel htmlFor="mobile" value="Mobile" top="top-1"/>
+                    <FloatingInputLabel htmlFor="mobile" value="Mobile" top="top-0 lg:top-1"/>
                     <InputError message={errors.mobile} className="mt-2" />
                 </div>
-                <div className="flex-1 ml-2 relative">
+                <div className="mb-4 flex-1 lg:ml-2 relative">
                     <TextInput
                         id="email"
                         type="text"
                         name="email"
-                        className="mt-1 block w-full dark:bg-gray-800 peer pt-4"
+                        className="mt-1 block w-full peer pt-4"
                         isFocused={true}
                         onChange={(e) => {setData('email', e.target.value); errors.email = '';}}
                         placeholder="hello@world.com"
                     />
-                    <FloatingInputLabel htmlFor="email" value="Email" top="top-1"/>
+                    <FloatingInputLabel htmlFor="email" value="Email" top="top-0 lg:top-1"/>
                     <InputError message={errors.email} className="mt-2" />
                 </div>
             </div>
-            <div className="mb-4 flex">
-                <div className="flex-1 mr-2 relative">
+            <div className="lg:flex">
+                <div className="mb-4 flex-1 lg:mr-2 relative">
                     <TextInput
                         id="website"
                         type="text"
                         name="website"
-                        className="mt-1 block w-full dark:bg-gray-800 peer pt-4"
+                        className="mt-1 block w-full peer pt-4"
                         isFocused={true}
                         onChange={(e) => {setData('website', e.target.value); errors.website = '';}}
                         placeholder="https://www.johnwick.com"
                     />
-                    <FloatingInputLabel htmlFor="website" value="Website" top="top-1"/>
+                    <FloatingInputLabel htmlFor="website" value="Website" top="top-0 lg:top-1"/>
                     <InputError message={errors.website} className="mt-2" />
                 </div>
-                <div className="flex-1 ml-2 relative">
+                <div className="mb-4 flex-1 lg:ml-2 relative">
                     <TextInput
                         id="company"
                         type="text"
                         name="company"
-                        className="mt-1 block w-full dark:bg-gray-800 peer pt-4"
+                        className="mt-1 block w-full peer pt-4"
                             isFocused={true}
                         onChange={(e) => {setData('company', e.target.value); errors.company = '';}}
                         placeholder="The Table"
                     />
-                    <FloatingInputLabel htmlFor="company" value="Company" top="top-1"/>
+                    <FloatingInputLabel htmlFor="company" value="Company" top="top-0 lg:top-1"/>
                     <InputError message={errors.company} className="mt-2" />
                 </div>
             </div>
@@ -128,7 +128,7 @@ const QrCodeCreateFormEmail: React.FC<propsInterface> = ({ onSubmit }) => {
             </div>
             <input type="hidden" value="contact" name="type" id="type"/>
             <div className="mb-4">
-                <button type="submit" className="button-primary w-16 p-2 text-center sm:rounded bg-indigo-300 dark:bg-indigo-700"><i className="fa-solid fa-right-to-bracket"></i></button>
+                <button type="submit" className="button-primary w-full lg:w-16 p-2 text-center sm:rounded bg-indigo-300 dark:bg-indigo-700"><i className="fa-solid fa-right-to-bracket"></i></button>
             </div>
         </form>
     );

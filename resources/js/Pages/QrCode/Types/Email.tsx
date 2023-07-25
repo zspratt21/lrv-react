@@ -47,31 +47,31 @@ const QrCodeCreateFormEmail: React.FC<propsInterface> = ({ onSubmit }) => {
             <div className="mb-4">
                 <h6>Email</h6>
             </div>
-            <div className="mb-5 flex">
-                <div className="flex-1 mr-2 relative">
+            <div className="lg:flex">
+                <div className="mb-5 flex-1 lg:mr-2 relative">
                     <TextInput
                         id="email"
                         type="text"
                         name="email"
-                        className="mt-1 block w-full dark:bg-gray-800 peer pt-4"
+                        className="mt-1 block w-full peer pt-4"
                         isFocused={true}
                         onChange={(e) => {setData('email', e.target.value); errors.email = '';}}
                         placeholder="hello@world.com"
                     />
-                    <FloatingInputLabel htmlFor="email" value="Address" top="top-1"/>
+                    <FloatingInputLabel htmlFor="email" value="Address" top="top-0 lg:top-1"/>
                     <InputError message={errors.email} className="mt-2" />
                 </div>
-                <div className="flex-1 ml-2 relative">
+                <div className="mb-5 flex-1 lg:ml-2 relative">
                     <TextInput
                         id="subject"
                         type="text"
                         name="subject"
-                        className="mt-1 block w-full dark:bg-gray-800 peer pt-4"
+                        className="mt-1 block w-full peer pt-4"
                         isFocused={true}
                         onChange={(e) => {setData('subject', e.target.value); errors.subject = '';}}
                         placeholder="Top Secret"
                     />
-                    <FloatingInputLabel htmlFor="subject" value="Subject" top="top-1"/>
+                    <FloatingInputLabel htmlFor="subject" value="Subject" top="top-0 lg:top-1"/>
                     <InputError message={errors.subject} className="mt-2" />
                 </div>
             </div>
@@ -79,20 +79,20 @@ const QrCodeCreateFormEmail: React.FC<propsInterface> = ({ onSubmit }) => {
                 <TextArea
                     id="body"
                     name="body"
-                    className="mt-1 block w-full dark:bg-gray-800 peer pb-0 pt-4"
+                    className="mt-1 block w-full peer pb-0 pt-4"
                     isFocused={true}
                     onChange={(e) => {setData('body', e.target.value); errors.body = '';}}
                     placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                 />
                 <FloatingInputLabel htmlFor="body" value="Body"/>
-                <div className="mt-2">
-                    <small>Your QR code will send this email when scanned.</small>
-                </div>
                 <InputError message={errors.body} className="mt-2" />
+            </div>
+            <div className="mb-4">
+                <small>Your QR code will send this email when scanned.</small>
             </div>
             <input type="hidden" value="email" name="type" id="type"/>
             <div className="mb-4">
-                <button type="submit" className="button-primary w-16 p-2 text-center sm:rounded bg-indigo-300 dark:bg-indigo-700"><i className="fa-solid fa-right-to-bracket"></i></button>
+                <button type="submit" className="button-primary w-full lg:w-16 p-2 text-center sm:rounded bg-indigo-300 dark:bg-indigo-700"><i className="fa-solid fa-right-to-bracket"></i></button>
             </div>
         </form>
     );

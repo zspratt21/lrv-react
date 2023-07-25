@@ -1,5 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
+import plugin from 'tailwindcss/plugin';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -15,10 +16,18 @@ export default {
                 fontFamily: {
                     sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 },
+                textColor: {
+                    'form-autofill': 'inherit',
+                }
             },
     },
 
-    plugins: [forms],
+    plugins: [
+        forms,
+        plugin(function({ addVariant }) {
+            addVariant('selected', '&.selected')
+        })
+    ],
 
     darkMode: 'class',
 

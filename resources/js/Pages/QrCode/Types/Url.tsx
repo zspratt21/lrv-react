@@ -36,7 +36,7 @@ const QrCodeCreateFormUrl: React.FC<propsInterface> = ({ onSubmit }) => {
                     id="url"
                     type="text"
                     name="url"
-                    className="mt-1 block w-full dark:bg-gray-800"
+                    className="mt-1 block w-full"
                     isFocused={true}
                     onChange={(e) => {setData('url', e.target.value); errors.url = '';}}
                     placeholder="https://google.com"
@@ -48,7 +48,7 @@ const QrCodeCreateFormUrl: React.FC<propsInterface> = ({ onSubmit }) => {
             </div>
             <input type="hidden" value="url" name="type" id="type"/>
             <div className="mb-4">
-                <button type="submit" className="button-primary w-16 p-2 text-center sm:rounded bg-indigo-300 dark:bg-indigo-700"><i className="fa-solid fa-right-to-bracket"></i></button>
+                <button type="submit" className="button-primary w-full lg:w-16 p-2 text-center sm:rounded bg-indigo-300 dark:bg-indigo-700"><i className="fa-solid fa-right-to-bracket"></i></button>
             </div>
         </form>
     );
