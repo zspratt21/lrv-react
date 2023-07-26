@@ -16,15 +16,12 @@ export default {
                 fontFamily: {
                     sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 },
-                textColor: {
-                    'form-autofill': 'inherit',
-                }
             },
     },
 
     plugins: [
         forms,
-        plugin(function({ addVariant }) {
+        plugin(function ({ addVariant }) {
             addVariant('selected', '&.selected')
         })
     ],

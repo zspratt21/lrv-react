@@ -12,7 +12,7 @@ export default function Dashboard({ auth }: PageProps) {
         >
             <Head title="Dashboard" />
 
-            <div className="py-12">
+            <div className="lg:py-12">
                 <QrCodeCreate />
             </div>
 

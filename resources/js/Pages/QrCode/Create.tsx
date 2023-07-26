@@ -87,11 +87,8 @@ const QrCodeCreate = () => {
 
     const [errorMessage, setErrorMessage] = useState('There was a problem with the request');
 
-    // @completed highlight qr code type when selected
-    // @completed form validation
     // @todo tests for qr request
-    // @todo mobile & tablet views/responsiveness
-    // @todo page restructure & cleanup
+    // @todo page restructure & cleanup/optimize
 
     const loading = loadingSpinner();
 
@@ -110,12 +107,12 @@ const QrCodeCreate = () => {
             </Modal>
             <div className="overflow-hidden shadow-sm sm:rounded-lg lg:flex lg:border-2 border-gray-300 dark:border-gray-700">
                 <div className="lg:p-6 text-gray-900 dark:text-gray-100 flex-1 lg:border-r-2 border-gray-300 dark:border-gray-700">
-                    <div className="flex flex-wrap border border-gray-300 dark:border-gray-700">
-                        <a href="" onClick={(e) => changeForm(e, <Url onSubmit={submit}/>)} className="button-primary w-full lg:w-1/5 p-2 text-center bg-white dark:bg-gray-800 selected:bg-gray-300 selected:dark:bg-gray-700 selected"><i className="fa-solid fa-chain"></i> Link</a>
-                        <a href="" onClick={(e) => changeForm(e, <Text onSubmit={submit}/>)} className="button-primary w-1/2 lg:w-1/5 p-2 text-center bg-white dark:bg-gray-800 selected:bg-gray-300 selected:dark:bg-gray-700"><i className="fa-solid fa-align-justify"></i> Text</a>
-                        <a href="" onClick={(e) => changeForm(e, <Contact onSubmit={submit}/>)} className="button-primary w-1/2 lg:w-1/5 p-2 text-center bg-white dark:bg-gray-800 selected:bg-gray-300 selected:dark:bg-gray-700"><i className="fa-solid fa-contact-card"></i> Contact</a>
-                        <a href="" onClick={(e) => changeForm(e, <Email onSubmit={submit}/>)} className="button-primary w-1/2 lg:w-1/5 p-2 text-center bg-white dark:bg-gray-800 selected:bg-gray-300 selected:dark:bg-gray-700"><i className="fa-solid fa-envelope"></i> Email</a>
-                        <a href="" onClick={(e) => changeForm(e, <WIFI onSubmit={submit}/>)} className="button-primary w-1/2 lg:w-1/5 p-2 text-center bg-white dark:bg-gray-800 selected:bg-gray-300 selected:dark:bg-gray-700"><i className="fa-solid fa-wifi"></i> WI-FI</a>
+                    <div className="flex flex-wrap lg:flex-nowrap lg:border border-gray-300 dark:border-gray-700">
+                        <a href="" onClick={(e) => changeForm(e, <Url onSubmit={submit}/>)} className="button-primary w-full p-2 text-center bg-white dark:bg-gray-800 selected:bg-gray-300 selected:dark:bg-gray-700 selected"><i className="fa-solid fa-chain"></i> Link</a>
+                        <a href="" onClick={(e) => changeForm(e, <Text onSubmit={submit}/>)} className="button-primary w-1/2 lg:w-full p-2 text-center bg-white dark:bg-gray-800 selected:bg-gray-300 selected:dark:bg-gray-700"><i className="fa-solid fa-align-justify"></i> Text</a>
+                        <a href="" onClick={(e) => changeForm(e, <Contact onSubmit={submit}/>)} className="button-primary w-1/2 lg:w-full p-2 text-center bg-white dark:bg-gray-800 selected:bg-gray-300 selected:dark:bg-gray-700"><i className="fa-solid fa-contact-card"></i> Contact</a>
+                        <a href="" onClick={(e) => changeForm(e, <Email onSubmit={submit}/>)} className="button-primary w-1/2 lg:w-full p-2 text-center bg-white dark:bg-gray-800 selected:bg-gray-300 selected:dark:bg-gray-700"><i className="fa-solid fa-envelope"></i> Email</a>
+                        <a href="" onClick={(e) => changeForm(e, <WIFI onSubmit={submit}/>)} className="button-primary w-1/2 lg:w-full p-2 text-center bg-white dark:bg-gray-800 selected:bg-gray-300 selected:dark:bg-gray-700"><i className="fa-solid fa-wifi"></i> WI-FI</a>
                     </div>
                     <div id="qr-form-container" className="border-gray-300 dark:border-gray-700 p-4">
                         {form}
