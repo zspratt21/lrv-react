@@ -24,7 +24,7 @@ const QrCodeCreate = () => {
                 }
                 else {
                     setQrCode(response.data.qrcode);
-                    setQrDisplay(<img src={response.data.qrcode}/>);
+                    setQrDisplay(<img id="qr-code" src={response.data.qrcode}/>);
                 }
             })
             .catch(function (error) {

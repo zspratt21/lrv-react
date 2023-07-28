@@ -87,7 +87,7 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                         </Link>
                     )}
 
-                    <PrimaryButton className="ml-4" disabled={processing}>
+                    <PrimaryButton className="ml-4" disabled={processing} value="login">
                         Log in
                     </PrimaryButton>
                 </div>
