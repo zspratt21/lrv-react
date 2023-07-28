@@ -19,11 +19,21 @@ const QrCodeCreateFormWiFi: React.FC<propsInterface> = ({ onSubmit }) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        let networkSelect = document.querySelector<HTMLSelectElement>('#network_type');
+        let default_network_type = networkSelect == null ? '' : networkSelect.value;
+        let network_type = data.network_type == '' ? default_network_type : data.network_type;
+        console.log('password: '+data.password);
+        console.log('network_type: '+network_type);
         let ssidValid = data.ssid !== '';
-        let authType1 = data.password !== '' && (data.network_type == 'WPA' || data.network_type == 'WEP');
-        let authType2 = data.password == '' && data.network_type == 'No Encryption';
-        let authTypeValid = authType1 || authType2;
-        let formValid = ssidValid && authTypeValid;
+        let authType1 = data.password !== '' && (network_type == 'WPA' || network_type == 'WEP');
+        let authType2 = data.password == '' && network_type == 'No Encryption';
+        let authTypeInvalid = !authType1 && !authType2;
+        let formValid = ssidValid && !authTypeInvalid;
+        // @debug
+        console.log('authType1: '+authType1);
+        console.log('authType2: '+authType2);
+        console.log('authTypeInvalid: '+authTypeInvalid);
+        console.log('formValid: '+formValid);
         if (formValid) {
             onSubmit(e);
         }
@@ -32,12 +42,12 @@ const QrCodeCreateFormWiFi: React.FC<propsInterface> = ({ onSubmit }) => {
                 errors.ssid = 'Please enter a SSID.';
                 setData('ssid', '');
             }
-            if (!authTypeValid) {
+            if (authTypeInvalid) {
                 setData('password', '');
-                if (!authType2 && data.password !== '') {
+                if (!authType2 && authType1) {
                     errors.password = 'A password is not allowed for this network type.';
                 }
-                else if (!authType1 && data.password == '') {
+                else if (!authType1 && authType2) {
                     errors.password = 'Please enter a password.';
                 }
             }
