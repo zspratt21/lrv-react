@@ -121,7 +121,6 @@ class CreateTest extends DuskTestCase
             $browser
                 ->clickLink('Dashboard')
                 ->waitForText($user->name)
-                ->screenshot('Error Handling - dashboard')
                 ->assertPathIs('/dashboard');
 
             $defaultQrCode = $browser->element('#qr-code')->getAttribute('src');
@@ -130,7 +129,7 @@ class CreateTest extends DuskTestCase
                 ->type('url', 'this is not a url')
                 ->press('[type="submit"]')
                 ->waitForText('Please enter a valid url')
-                ->screenshot('Error Handling - url');
+                ->screenshot('error handling url');
 
             $invalidUrlQrCode = $browser->element('#qr-code')->getAttribute('src');
             $this->assertEquals($defaultQrCode, $invalidUrlQrCode);
@@ -141,7 +140,7 @@ class CreateTest extends DuskTestCase
                 ->type('text', '')
                 ->press('[type="submit"]')
                 ->waitForText('Please enter some text')
-                ->screenshot('Error Handling - text');
+                ->screenshot('error handling text');
 
             $invalidTextQrCode = $browser->element('#qr-code')->getAttribute('src');
             $this->assertEquals($invalidUrlQrCode, $invalidTextQrCode);
@@ -154,7 +153,7 @@ class CreateTest extends DuskTestCase
                 ->waitForText('Please enter a valid email')
                 ->assertSee('Please enter a subject')
                 ->assertSee('Please enter a body')
-                ->screenshot('Error Handling - email');
+                ->screenshot('error handling email');
 
             $invalidEmailQrCode = $browser->element('#qr-code')->getAttribute('src');
             $this->assertEquals($invalidTextQrCode, $invalidEmailQrCode);
@@ -171,7 +170,7 @@ class CreateTest extends DuskTestCase
                 ->assertSee('Mobile number cannot be empty')
                 ->assertSee('Please enter a valid email')
                 ->assertSee('Please enter a valid website url')
-                ->screenshot('Error Handling - contact');
+                ->screenshot('error handling contact');
 
             $invalidContactQrCode = $browser->element('#qr-code')->getAttribute('src');
             $this->assertEquals($invalidEmailQrCode, $invalidContactQrCode);
@@ -180,7 +179,7 @@ class CreateTest extends DuskTestCase
                 ->type('mobile', 'this is not a valid mobile number')
                 ->press('[type="submit"]')
                 ->waitForText('Please enter a valid mobile number')
-                ->screenshot('Error Handling - contact invalid mobile');
+                ->screenshot('error handling contact invalid mobile');
 
             $invalidContactQrCodeMobile = $browser->element('#qr-code')->getAttribute('src');
             $this->assertEquals($invalidContactQrCode, $invalidContactQrCodeMobile);
@@ -193,7 +192,7 @@ class CreateTest extends DuskTestCase
                 ->press('[type="submit"]')
                 ->waitForText('Please enter a SSID')
                 ->assertSee('Please enter a password')
-                ->screenshot('Error Handling - wifi');
+                ->screenshot('error handling wifi');
 
             $invalidWifiQrCode = $browser->element('#qr-code')->getAttribute('src');
             $this->assertEquals($invalidContactQrCodeMobile, $invalidWifiQrCode);
@@ -203,7 +202,7 @@ class CreateTest extends DuskTestCase
                 ->select('network_type', 'No Encryption')
                 ->press('[type="submit"]')
                 ->waitForText('A password is not allowed for this network type')
-                ->screenshot('Error Handling - wifi no encryption');
+                ->screenshot('error handling wifi no encryption');
 
             $invalidWifiQrCodeNoEncryption = $browser->element('#qr-code')->getAttribute('src');
             $this->assertEquals($invalidWifiQrCode, $invalidWifiQrCodeNoEncryption);
