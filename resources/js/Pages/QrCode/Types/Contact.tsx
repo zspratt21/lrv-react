@@ -1,5 +1,4 @@
 import React from 'react';
-import InputLabel from "@/Components/InputLabel";
 import InputError from "@/Components/InputError";
 import {useForm} from "@inertiajs/react";
 import TextInput from "@/Components/TextInput";
@@ -35,7 +34,12 @@ const QrCodeCreateFormEmail: React.FC<propsInterface> = ({ onSubmit }) => {
                 setData('name', '');
             }
             if (!mobileValid) {
-                errors.mobile = 'Please enter a valid mobile number.';
+                if (data.mobile == '') {
+                    errors.mobile = 'Mobile number cannot be empty.';
+                }
+                else {
+                    errors.mobile = 'Please enter a valid mobile number.';
+                }
                 setData('mobile', '');
             }
             if (!emailValid) {
@@ -43,7 +47,7 @@ const QrCodeCreateFormEmail: React.FC<propsInterface> = ({ onSubmit }) => {
                 setData('email', '');
             }
             if (!websiteValid) {
-                errors.website = 'Please enter a valid website.';
+                errors.website = 'Please enter a valid website url.';
                 setData('website', '');
             }
         }
