@@ -34,19 +34,16 @@ const QrCodeCreate = () => {
             })
             .finally(function () {});
     }
-
     const downloadQrCode = (data = qrCode, format = 'png') => {
         let link = document.createElement('a');
         link.href = data;
         link.download = 'qrcode.'+format;
         link.click();
     }
-
     const downloadQrCodeSvg = () => {
         let tempQueryString = queryString !== '' ? queryString+'&format=svg' : 'format=svg';
         getQrCode('?'+tempQueryString);
     }
-
     const submit: FormEventHandler = (e ) => {
         e.preventDefault();
         let formData = new FormData(e.currentTarget as HTMLFormElement);
@@ -55,7 +52,6 @@ const QrCodeCreate = () => {
         setQrDisplay(loading);
         getQrCode('?'+tempQueryString);
     };
-
     const changeForm = (e: React.MouseEvent<HTMLAnchorElement>, formComponent: React.ReactNode) => {
         e.preventDefault();
         const selectedLink = e.currentTarget;
@@ -64,34 +60,22 @@ const QrCodeCreate = () => {
         selectedLink.classList.add('selected');
         setForm(formComponent);
     }
-
     const [isQrModalOpen, setQrModalOpen] = useState(false);
-
     const openQrModal = () => {
         setQrModalOpen(true);
     };
-
     const closeQrModal = () => {
         setQrModalOpen(false);
     };
-
     const [isErrorModalOpen, setErrorModalOpen] = useState(false);
-
     const openErrorModal = () => {
         setErrorModalOpen(true);
     };
-
     const closeErrorModal = () => {
         setErrorModalOpen(false);
     };
-
     const [errorMessage, setErrorMessage] = useState('There was a problem with the request');
-
-    // @todo tests for qr request
-    // @todo page restructure & cleanup/optimize
-
     const loading = loadingSpinner();
-
     const [qrDisplay, setQrDisplay] = useState(loading);
 
     return (

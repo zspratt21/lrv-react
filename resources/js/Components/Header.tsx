@@ -7,7 +7,7 @@ import { Link } from '@inertiajs/react';
 import { User } from '@/types';
 import DarkModeToggle from "@/Components/DarkModeToggle";
 
-export default function Header({ user, children }: PropsWithChildren<{ user: User|null }>) {
+export default function Header({ user }: PropsWithChildren<{ user: User|null }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -20,25 +20,19 @@ export default function Header({ user, children }: PropsWithChildren<{ user: Use
                                 <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                             </Link>
                         </div>
-
-                        <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                Dashboard
-                            </NavLink>
-                        </div>
-                    </div>
-
-                    <div className="hidden sm:flex sm:items-center sm:ml-6">
-                        <div className="ml-3 relative">
+                        <div className="ml-3 relative items-center inline-block flex align-baseline">
                             <DarkModeToggle className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"/>
                         </div>
-                        {user === null && (
-                            <div className="ml-3 relative">
-                                <NavLink href={route('login')} active={route().current('login')}>
-                                    Log in
+                        {user !== null && (
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                    Dashboard
                                 </NavLink>
                             </div>
                         )}
+                    </div>
+
+                    <div className="hidden sm:flex sm:items-center sm:ml-6">
                         {user !== null && (
                             <div className="ml-3 relative">
                                 <Dropdown>
@@ -74,6 +68,15 @@ export default function Header({ user, children }: PropsWithChildren<{ user: Use
                                     </Dropdown.Content>
                                 </Dropdown>
                             </div>
+                        ) || (
+                            <div className="ml-3 relative">
+                                <NavLink href={route('login')} active={route().current('login')} className='bg-gray-200 dark:bg-gray-900 dark:text-white text-gray-800 rounded-full px-4 pt-2 pb-2 mx-3'>
+                                    Sign in
+                                </NavLink>
+                                <NavLink href={route('register')} active={route().current('register')} className='bg-gray-200 dark:bg-gray-900 dark:text-white text-gray-800 rounded-full px-4 pt-2 pb-2 mx-3'>
+                                    Sign up
+                                </NavLink>
+                            </div>
                         )}
                     </div>
 
@@ -104,27 +107,39 @@ export default function Header({ user, children }: PropsWithChildren<{ user: Use
             </div>
 
             <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
-                <div className="px-2">
-                    <DarkModeToggle className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"/>
-                </div>
-                <div className="pt-2 pb-3 space-y-1">
-                    <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                        Dashboard
-                    </ResponsiveNavLink>
-                </div>
                 {user !== null && (
-                    <div className="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-                        <div className="px-4">
-                            <div className="font-medium text-base text-gray-800 dark:text-gray-200">
-                                {user.name}
-                            </div>
-                            <div className="font-medium text-sm text-gray-500">{user.email}</div>
+                    <div>
+                        <div className="pt-2 pb-3 space-y-1">
+                            <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                Dashboard
+                            </ResponsiveNavLink>
                         </div>
+                        <div className="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                            <div className="px-4">
+                                <div className="font-medium text-base text-gray-800 dark:text-gray-200">
+                                    {user.name}
+                                </div>
+                                <div className="font-medium text-sm text-gray-500">{user.email}</div>
+                            </div>
 
-                        <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
-                            <ResponsiveNavLink method="post" href={route('logout')} as="button">
-                                Log Out
+                            <div className="mt-3 space-y-1">
+                                <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
+                                <ResponsiveNavLink method="post" href={route('logout')} as="button">
+                                    Log Out
+                                </ResponsiveNavLink>
+                            </div>
+                        </div>
+                    </div>
+                ) || (
+                    <div>
+                        <div className="pt-2 pb-3 space-y-1">
+                            <ResponsiveNavLink href={route('login')} active={route().current('login')}>
+                                Sign in
+                            </ResponsiveNavLink>
+                        </div>
+                        <div className="pt-2 pb-3 space-y-1">
+                            <ResponsiveNavLink href={route('register')} active={route().current('register')}>
+                                Sign up
                             </ResponsiveNavLink>
                         </div>
                     </div>

@@ -1,17 +1,12 @@
-import {Link, Head} from '@inertiajs/react';
-import {PageProps} from '@/types';
-import DarkModeToggle from "@/Components/DarkModeToggle";
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
+import {PageProps} from "@/types";
 
-export default function Welcome() {
+export default function Welcome({ auth }: PageProps) {
     return (
-
-        //bg-white dark:bg-gray-800
-        //bg-gray-100 dark:bg-gray-900
-        <div className="lg:h-screen min-h-screen bg-white dark:bg-gray-800">
-            <Header user={null}/>
-            <div className="bg-white dark:bg-gray-800 w-full overflow-hidden relative">
+        <div className="lg:h-screen min-h-screen bg-white dark:bg-gray-800 flex flex-col">
+            <Header user={auth.user}/>
+            <div className="bg-white dark:bg-gray-800 w-full overflow-hidden relative flex-1">
                 <div className="bg-gray-100 dark:bg-gray-900 relative">
                     <section className="pt-4 sm:pt-8">
                         <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
@@ -28,7 +23,7 @@ export default function Welcome() {
                                 <div className="mx-auto relative">
                                     <div className="lg:max-w-screen-xl lg:mx-auto">
                                         <img
-                                            src="https://images2.imgbox.com/bb/e1/wpFMVRCT_o.png"
+                                            src="https://lh3.googleusercontent.com/drive-viewer/AITFw-wem-PvkJdlrTqchCXilyVQSTfEh8QQA167ekopqVCEkHXB6Tj_SzyK9-IcDFz9eDF4JA4tgYycDKKgL_gszGFfUQD1dA=w1530-h1182"
                                             className="transform w-[800px] h-auto lg:mx-auto rounded-lg p-3 dark:bg-white bg-gray-900"/>
                                     </div>
                                 </div>
