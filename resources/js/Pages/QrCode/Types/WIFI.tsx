@@ -20,7 +20,7 @@ const QrCodeCreateFormWiFi: React.FC<propsInterface> = ({ onSubmit }) => {
         let networkSelect = document.querySelector<HTMLSelectElement>('#network_type');
         let default_network_type = networkSelect == null ? '' : networkSelect.value;
         setData('network_type', default_network_type);
-    });
+    }, []);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
